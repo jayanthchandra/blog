@@ -1,4 +1,4 @@
-baseURL = 'https://jayanthchandra.github.io/blog/'
+baseURL = 'https://jchandra.com'
 languageCode = 'en-us'
 title = 'JC Site'
 theme = 'blowfish'
