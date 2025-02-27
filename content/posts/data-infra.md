@@ -54,13 +54,13 @@ The platform's development was segmented into two layers: Data Ingestion and Sto
 
 ![Data Processing](/images/Data_Platform.png)
 
-- **Data Storage: Efficient and Cost-Effective Persistence**
+- **Data Storage**
   - All raw data, ingested from our diverse sources, is persisted in file storage (S3) in Parquet format. This choice offers significant advantages: Parquet's columnar storage optimizes query performance, and S3 provides cost-effective and highly durable storage.
-- **Data Transformation and Quality: Robust Pipelines and Validation**
+- **Data Transformation and Quality**
   - Airflow orchestrates dbt runs, enabling us to build modular, testable, and maintainable data transformation pipelines. dbt's transformation logic, expressed as SQL, simplifies the process and allows for version control.
   - Great Expectations is integrated into our pipelines to ensure comprehensive data validation checks at every stage. This helps us detect and address data quality issues early, preventing downstream errors.
   - dbt docs are used for good documentations. This allows for data lineage tracking, and helps downstream consumers discover and understand the datasets we curate for them.
-- **Ad-Hoc Analysis: Flexibility and Speed**
+- **Ad-Hoc Analysis**
   - Depending on dataset size and query patterns, we also leverage DuckDB for ad-hoc analysis and rapid prototyping. DuckDB's in-process, embeddable nature allows for fast, interactive querying, particularly for smaller datasets or exploratory analysis.
 - **Medallion Architecture: Organizing Data for Consumption**
   - We implemented a medallion architecture (Bronze, Silver, Gold) to organize our data for optimal consumption.
@@ -69,10 +69,10 @@ The platform's development was segmented into two layers: Data Ingestion and Sto
 
 To enable efficient data discovery and querying:
 
-- **Data Indexing and Metastore: Seamless Data Discovery**
+- **Data Discovery: Data Indexing and Metastore**
   - AWS Glue crawlers automatically index data in S3, updating metadata as new data arrives.
   - The AWS Glue Data Catalog serves as our Hive Metastore, providing a centralized repository for metadata. This allows Trino to efficiently locate and access data across our data lake.
-- **Querying and Visualization: Empowering Data-Driven Decisions**
+- **Querying and Visualization**
   - Trino is integrated with the Hive Metastore for distributed querying, enabling us to query data across our data lake using standard SQL. Trino's ability to federate queries across multiple data sources provides flexibility.
   - Metabase is linked to Trino, providing a user-friendly data visualization layer. This empowers our data and BI teams to create interactive reports and dashboards, driving data-driven decisions throughout the organization.
 
