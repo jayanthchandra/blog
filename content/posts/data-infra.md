@@ -21,9 +21,9 @@ Storing the data was only part of the equation. We needed to process and analyse
 ## Our Initial Data Platform
 
 ![Initial Data Platform](/images/Initial_Data_Infra.png)
-Our initial data platform was built on a foundation of tools that addressed our early-stage needs, but quickly became insufficient as we scaled. Data ingestion was primarily handled by Hevo, which leveraged Debezium Slots for capturing CDC events from our databases, oplog for MongoDB, and direct integration with Google Sheets. While Hevo simplified initial data capture, its data transformation capabilities were limited, primarily offering basic functionality like data key deletion and value formatting.
+Our initial data platform was built on a foundation of tools that addressed our early-stage needs, but quickly became insufficient as we scaled. Data ingestion was primarily handled by Hevo, which leveraged Debezium Slots for capturing CDC events from our databases and direct integration with Google Sheets. While Hevo simplified initial data capture, its data transformation capabilities were limited, primarily offering basic functionality like data key deletion and value formatting.
 
-Revenue data from marketplaces was ingested through an RPA-driven process, with data being directly ingested into Google BigQuery (GBQ) as raw dumps. BigQuery (GBQ). While this approach was simpler, it came with high costs, as GBQ is priced based on the amount of data queried. Given that the data sizes for each table were in the order of 200-500GBs, the costs quickly escalated.
+Revenue data from marketplaces was ingested through an RPA-driven process, with data being directly ingested into Google BigQuery (GBQ) as raw dumps. While this approach was simpler, it came with high costs, as GBQ is priced based on the amount of data queried. Given that the data sizes for each table were in the order of 200-500GBs, the costs quickly escalated.
 
 Furthermore, a significant portion of queries were executed directly against our live OLTP tables. This direct querying increased the load on our production databases, impacting performance and further contributing to cost increases.
 
