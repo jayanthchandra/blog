@@ -80,13 +80,15 @@ To enable efficient data discovery and querying:
 
 Our cost reduction was realized through maximizing the utilization of our current infrastructure and transitioning away from expensive managed services.
 
-| Old Data Platform | New Architecture        |
-| ----------------- | ----------------------- |
-| Hevo: 300~500$    | Connect Cluster : ~150$ |
-| GBQ : ~750$       | Airflow: ~160$          |
-| Postgres: 1000$   | Trino: ~160$            |
-|                   | Glue: ~10$              |
-| Total: ~2200$     | Total: ~460$            |
+| Old Data Platform  | New Architecture        |
+| ------------------ | ----------------------- |
+| Hevo: 300~500$     | Connect Cluster : ~150$ |
+| GBQ : ~750$        | Airflow: ~160$          |
+| Postgres: 1000$    | Trino: ~160$            |
+|                    | Glue: ~10$              |
+| Total: ~2200$ ~\*~ | Total: ~460$ ~\*~       |
+
+~\*~ All costs are monthly.
 
 ---
 
