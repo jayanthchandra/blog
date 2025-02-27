@@ -76,6 +76,22 @@ To enable efficient data discovery and querying:
   - Trino is integrated with the Hive Metastore for distributed querying, enabling us to query data across our data lake using standard SQL. Trino's ability to federate queries across multiple data sources provides flexibility.
   - Metabase is linked to Trino, providing a user-friendly data visualization layer. This empowers our data and BI teams to create interactive reports and dashboards, driving data-driven decisions throughout the organization.
 
-## Cost Analysis
+## Analyzing the Cost Reduction
 
-[^1]: This is the footnote.
+Our cost reduction was realized through maximizing the utilization of our current infrastructure and transitioning away from expensive managed services.
+
+| Old Data Platform | New Architecture        |
+| ----------------- | ----------------------- |
+| Hevo: 300~500$    | Connect Cluster : ~150$ |
+| GBQ : ~750$       | Airflow: ~160$          |
+| Postgres: 1000$   | Trino: ~160$            |
+|                   | Glue: ~10$              |
+| Total: ~2200$     | Total: ~460$            |
+
+---
+
+### Acknowledgments
+
+I would like to thank my stunning data team and managers - Aankesh, Deepak and Prashant for enabling the team
+
+[^1]: Aankesh is Senior Engineering Manager managing the Repayments, Risk, and Data Engineering teams, providing leadership for various storage technologies.
