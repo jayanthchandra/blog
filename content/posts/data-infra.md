@@ -96,4 +96,4 @@ Our cost reduction was realized through maximizing the utilization of our curren
 
 I would like to thank my stunning data team and managers - Aankesh, Deepak and Prashant for enabling the team
 
-[^1]: Aankesh is Senior Engineering Manager managing the Repayments, Risk, and Data Engineering teams, providing leadership for various storage technologies.
+[^1]: [Aankesh](https://www.linkedin.com/in/aankesh-rajshekar-0a53a219/) is Senior Engineering Manager managing the Repayments, Risk, and Data Engineering teams, providing leadership for various storage technologies.
