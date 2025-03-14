@@ -15,9 +15,9 @@ In this post, we are going to dive deep into how pickle works, all the way down 
 
 ## How does it work ?
 
-The Python `pickle` module implements a serialization (pickling) and deserialization (unpickling) protocol that translates arbitrary Python objectsinto a byte stream, and vice versa. The pickle module operates a separate stack-based virtual machine, distinct from CPython’s VM, processing a sequence of opcodes to reconstruct objects. Essentially, pickle functions like a mini interpreter, executing its own opcodes from a binary stream, similar to how Python’s main interpreter loop runs bytecode. However, unlike Python bytecode, which has safety checks, pickle opcodes can invoke arbitrary functions, making it inherently unsafe.
+The Python `pickle` module implements a serialization (pickling) and deserialization (unpickling) protocol that translates arbitrary Python objects into a byte stream, and vice versa. The pickle module operates a separate stack-based virtual machine, distinct from CPython’s VM, processing a sequence of opcodes to reconstruct objects. Essentially, pickle functions like a mini interpreter, executing its own opcodes from a binary stream, similar to how Python’s main interpreter loop runs bytecode. However, unlike Python bytecode, which has safety checks, pickle opcodes can invoke arbitrary functions, making it inherently unsafe.
 
-These opcodes can be categorized into several groups:
+These Pickle opcodes can be categorized into several groups:
 
 - Stack Manipulation: Control the VM's stack, managing the flow of data during serialization and deserialization.
 - Data Loading: Responsible for pushing literal values and container objects onto the stack.
@@ -27,7 +27,8 @@ These opcodes can be categorized into several groups:
 
 The complete set of pickle opcodes is defined and implemented within the CPython source code file [`Lib/pickletools.py`](https://github.com/python/cpython/blob/3ddf983afda7173277666bb5f9033634e59363f8/Lib/pickletools.py#L1153) and opcode handling by [`Modules/_pickle.c`](https://github.com/python/cpython/blob/f3e275f1a92c0f668b1397b21e8ffaaed576c317/Modules/_pickle.c#L7924)
 
-Pickle uses `__reduce__` or `__reduce_ex__` to customize serialization for objects, employing opcodes like GLOBAL and REDUCE. To manage object references and handle cycles, it utilizes a memo and PUT/GET opcodes, ensuring efficient reconstruction.
+Pickle uses `__reduce__` or `__reduce_ex__` to customize serialization for objects, employing opcodes like GLOBAL and REDUCE.
+To manage object references and handle cycles, it utilizes a memo and PUT/GET opcodes, ensuring efficient reconstruction.
 
 ### Example
 
