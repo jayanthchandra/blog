@@ -20,7 +20,7 @@ Storing the data was only part of the equation. We needed to process and analyse
 
 ## Our Initial Data Platform
 
-![Initial Data Platform](/images/Initial_Data_Infra.png)
+![Initial Data Platform](/images/b1_Initial_Data_Infra.png)
 Our initial data platform was built on a foundation of tools that addressed our early-stage needs, but quickly became insufficient as we scaled. Data ingestion was primarily handled by Hevo, which leveraged Debezium Slots for capturing CDC events from our databases and direct integration with Google Sheets. While Hevo simplified initial data capture, its data transformation capabilities were limited, primarily offering basic functionality like data key deletion and value formatting.
 
 Revenue data from marketplaces was ingested through an RPA-driven process, with data being directly ingested into Google BigQuery (GBQ) as raw dumps. While this approach was simpler, it came with high costs, as GBQ is priced based on the amount of data queried. Given that the data sizes for each table were in the order of 200-500GBs, the costs quickly escalated.
@@ -37,7 +37,7 @@ The platform's development was segmented into two layers: Data Ingestion and Sto
 
 ### Data Ingestion Layer
 
-![Data Ingestion](/images/Data_Ingestion.png)
+![Data Ingestion](/images/b1_Data_Ingestion.png)
 
 - **Debezium:** Implemented for capturing CDC events from PostgreSQL and MongoDB, enabling real-time data replication.
 - **Airflow:** Utilized to orchestrate manual data ingestion from sources like Google Sheets and CSV files.
@@ -52,7 +52,7 @@ The platform's development was segmented into two layers: Data Ingestion and Sto
 
 ### Storage & Compute Layer
 
-![Data Processing](/images/Data_Platform.png)
+![Data Processing](/images/b1_Data_Platform.png)
 
 - **Data Storage**
   - All raw data, ingested from our diverse sources, is persisted in file storage (S3) in Parquet format. This choice offers significant advantages: Parquet's columnar storage optimizes query performance, and S3 provides cost-effective and highly durable storage.
