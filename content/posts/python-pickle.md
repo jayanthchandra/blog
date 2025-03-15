@@ -253,7 +253,7 @@ For the above payload, these are the opcodes which indicate security risk
 
 1. Prevent Poisoned Models & Untrusted Pickles
    - Never unpickle files from untrusted sources.
-   - Use safer alternatives like **ONNX, SafeTensors, TorchScript, JSON or joblib (safer than pickle)**.
+   - Use safer alternatives like **ONNX, SafeTensors, TorchScript**
    - **Disassemble and inspect** pickle files using `pickletools.dis()`.
 2. AI Firewalls & Screening Tools
 3. Defensive Training Techniques
