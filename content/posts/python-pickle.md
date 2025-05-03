@@ -1,7 +1,7 @@
 ---
 date: "2025-03-13T00:34:08+05:30"
 title: "The Dark Side of Python’s pickle – How to Backdoor an AI Model"
-tags: ["ml", "python"]
+tags: ["ML", "python"]
 draft: false
 showAuthorsBadges: false
 ---
