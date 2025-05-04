@@ -1,6 +1,6 @@
 ---
 date: "2025-05-02T00:34:08+05:30"
-title: "Why Hyperparameter Tuning is just a Resource Scheduling Problem"
+title: "Hyperparameter Tuning is just a Resource Scheduling Problem"
 tags: ["ML"]
 draft: false
 showAuthorsBadges: false
