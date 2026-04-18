@@ -27,7 +27,7 @@ The space of possible hyperparameters is often vast, and the relationship betwee
 ### Objective Function
 
 The goal of HPO is to identify the set of hyperparameters that maximize (or minimize) some performance measure, usually the validation accuracy or loss of a model after training. This is typically expressed as an objective function.
-{{< katex >}}
+{{< katex />}}
 
 $$\text{maximize} \ f(\theta) = \text{Accuracy}, \quad \text{or minimize} \ f(\theta) = \text{Loss}$$
 
