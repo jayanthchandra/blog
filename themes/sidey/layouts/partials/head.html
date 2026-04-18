@@ -3,7 +3,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ with .Title }}{{ . }} - {{ end }}{{ .Site.Title }}</title>
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description | default .Site.Title }}{{ end }}">
-  <meta name="author" content="{{ .Site.Author.name | default .Site.Title }}">
+  <meta name="author" content="{{ .Site.Title }}">
   <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "atom.xml" | relURL }}">
   <link rel="shortcut icon" href="{{ "favicon/favicon.ico" | relURL }}">
   <link rel="apple-touch-icon" href="{{ "favicon/apple-touch-icon.png" | relURL }}">
