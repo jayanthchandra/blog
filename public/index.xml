@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JC Blog</title>
+    <link>https://jchandra.com/</link>
+    <description>Recent content on JC Blog</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 02 May 2025 00:34:08 +0530</lastBuildDate>
+    <atom:link href="https://jchandra.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hyperparameter Tuning is just a Resource Scheduling Problem</title>
+      <link>https://jchandra.com/posts/hyperparameter-optimisation/</link>
+      <pubDate>Fri, 02 May 2025 00:34:08 +0530</pubDate>
+      <guid>https://jchandra.com/posts/hyperparameter-optimisation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>The Dark Side of Python’s pickle – How to Backdoor an AI Model</title>
+      <link>https://jchandra.com/posts/python-pickle/</link>
+      <pubDate>Thu, 13 Mar 2025 00:34:08 +0530</pubDate>
+      <guid>https://jchandra.com/posts/python-pickle/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>How we built a Scalable Data Platform</title>
+      <link>https://jchandra.com/posts/data-infra/</link>
+      <pubDate>Thu, 27 Feb 2025 00:34:08 +0530</pubDate>
+      <guid>https://jchandra.com/posts/data-infra/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>About</title>
+      <link>https://jchandra.com/about/</link>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>https://jchandra.com/about/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Search</title>
+      <link>https://jchandra.com/search/</link>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 +0000</pubDate>
+      <guid>https://jchandra.com/search/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

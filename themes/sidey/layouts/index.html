@@ -1,0 +1,3 @@
+{{ define "main" }}<div class="posts"><ul>{{ range first 20 (where .Site.RegularPages "Section" "posts") }}
+    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "02-01-2006" }}</time></li>{{ end }}
+  </ul></div>{{ end }}

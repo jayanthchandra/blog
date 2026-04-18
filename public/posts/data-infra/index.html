@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JC Blog</title>
+  <meta name="description" content="JC Blog">
+  <meta name="author" content="JC Blog">
+  <link rel="alternate" type="application/rss+xml" title="JC Blog" href="/atom.xml">
+  <link rel="shortcut icon" href="/favicon/favicon.ico">
+  <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/favicon/site.webmanifest">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+  <script>
+document.addEventListener("DOMContentLoaded", function() {
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false},
+      {left: "\\(", right: "\\)", display: false},
+      {left: "\\[", right: "\\]", display: true}
+    ],
+    throwOnError: false
+  });
+});
+  </script>
+  <style>
+*,:after,:before{box-sizing:border-box;background-color:inherit;color:inherit;margin:0;padding:0}body{font-family:system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5;font-size:1rem;color:#16171a}nav ul{border-right:1px solid #edf2f7}a{color:#000;text-decoration-skip-ink:auto;text-decoration:underline}a:hover{color:#333}pre{margin:.5rem 0;padding:.5rem}.post p{margin:.5rem 0}.post h1,.post h2,.post h3,.post h4{margin:1rem 0}.post h2:first-child,.project h2:first-child,.photo h2:first-child{margin-top:0}.meta{margin:2rem 0}code,pre{background:#ececee}code{padding:.1rem}pre code{border:none}pre{padding:1rem;overflow-x:auto}img{max-width:100%}hr{background:#000;height:1px;border:0}header{flex-basis:10rem;flex-grow:1;position:relative}header a{text-decoration:none}header li{margin-bottom:.2rem;text-align:right;margin-right:2rem;list-style:none}header a.active{font-weight:700}header,section{padding:1rem}blockquote{font-style:italic;border-left:5px solid #ececec;padding-left:1rem}h1,h2,h3,h4,h5{line-height:1;margin:1rem 0;font-weight:600}section h1:first-child{margin-top:0}strong,b{font-weight:700}.posts ul,header ul{list-style:none}.posts li{align-items:center;display:flex;justify-content:space-between;margin-bottom:.5rem}.posts li a,.posts li div,.projects li a{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-decoration:none}.posts li time,.projects li time{padding-left:1rem;white-space:nowrap;font-variant-numeric:tabular-nums}main{display:flex;flex-wrap:wrap;max-width:60rem;margin:2rem auto;padding:1rem}section{flex-basis:0;flex-grow:999;min-width:70%;display:flex;flex-direction:column}input{padding:.5rem;font-size:1rem;border:1px solid #ccc;border-radius:4px;width:100%;max-width:30rem;margin-bottom:1rem}input:focus{outline:none;border-color:#000}#search-results{margin-top:1rem}
+.post h1#search{margin-top:0}@media screen and (max-width:45rem){header li{display:inline;margin-right:1rem}header ul{border-bottom:1px solid #edf2f7;padding-bottom:2rem}nav ul{border-right:0}.posts li{flex-direction:column;align-items:flex-start}.posts li time{padding-left:0;margin-top:.25rem}}@media print{.no-print,.no-print*{display:none!important}}
+  </style>
+</head>
+  <body>
+    <main>
+      <header>
+  <nav>
+    <ul>
+      <li><a href="/posts/">Writing</a></li>
+      <li><a href="/about/">About</a></li>
+      <li><a href="/search/">Search</a></li>
+    </ul>
+  </nav>
+</header>
+      <section>
+        
+<article class="post">
+  <h1>How we built a Scalable Data Platform</h1>
+  <div class="content">
+    <p>Building and managing a data platform that is both scalable and cost-effective is a challenge many organizations face. We managed an extensive data lake with a lean data team and reduced our <code>Infra Cost by 70%</code>.</p>
+<p>This article explores how we built it and the lessons we learned. Hopefully, some of these insights will be useful (or at least interesting!) for your own data platform projects, regardless of your team size.</p>
+<h2 id="our-data-landscape">Our Data Landscape</h2>
+<p>We are a fintech startup helping SMEs raise capital from our platform where we provide diverse financial products ranging from Term Loan, Revenue Based Financing to Syndication, we face one unique data challenge: <strong>Our data comes from everywhere</strong>.</p>
+<p>Our clients often manage their financial information in different ways, leading to data sources ranging from the structured data in our MongoDB and PostgreSQL databases to the semi-structured data found in marketplaces, Google Sheets, and various payment platforms.</p>
+<p>Storing the data was only part of the equation. We needed to process and analyse it at scale, transform it into actionable intelligence that drive key business decisions. Our data and BI analysts play a crucial role in this process, requiring robust data tooling to effectively access, analyze, and visualize the data. From lead generation and risk analysis to payment alerting and reconciliation, data is at the heart of our operations, and our data platform needs to support these critical workflows throughout the entire application lifecycle.</p>
+<h2 id="our-initial-data-platform">Our Initial Data Platform</h2>
+<p><img src="/images/b1_Initial_Data_Infra.png" alt="Initial Data Platform">
+Our initial data platform was built on a foundation of tools that addressed our early-stage needs, but quickly became insufficient as we scaled. Data ingestion was primarily handled by Hevo, which leveraged Debezium Slots for capturing CDC events from our databases and direct integration with Google Sheets. While Hevo simplified initial data capture, its data transformation capabilities were limited, primarily offering basic functionality like data key deletion and value formatting.</p>
+<p>Revenue data from marketplaces was ingested through an RPA-driven process, with data being directly ingested into Google BigQuery (GBQ) as raw dumps. While this approach was simpler, it came with high costs, as GBQ is priced based on the amount of data queried. Given that the data sizes for each table were in the order of 200-500GBs, the costs quickly escalated.</p>
+<p>Furthermore, a significant portion of queries were executed directly against our live OLTP tables. This direct querying increased the load on our production databases, impacting performance and further contributing to cost increases.</p>
+<p>In the early days, with a smaller team and less data, these engineering decisions were pragmatic and likely solved the immediate problems. However, as our company grew and data demands increased, it became clear that this solution was not scalable and could not meet our evolving requirements. This realization led to the creation of a new data team, with myself and my manager, Aankesh <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, tasked with building a more robust and scalable data platform. We needed a platform that could handle the volume, variety, and complexity of our data, while also providing the necessary tools for efficient analysis and decision-making.</p>
+<h2 id="our-new-data-platform">Our New Data Platform</h2>
+<p>We implemented an ELT stack for our new data platform, leveraging cheap storage to prioritize raw data ingestion and subsequent in-warehouse transformations. We also strategically reused existing software components where they weren&rsquo;t being fully utilized, further optimizing our development efforts.</p>
+<p>The platform&rsquo;s development was segmented into two layers: Data Ingestion and Storage &amp; Compute.</p>
+<h3 id="data-ingestion-layer">Data Ingestion Layer</h3>
+<p><img src="/images/b1_Data_Ingestion.png" alt="Data Ingestion"></p>
+<ul>
+<li><strong>Debezium:</strong> Implemented for capturing CDC events from PostgreSQL and MongoDB, enabling real-time data replication.</li>
+<li><strong>Airflow:</strong> Utilized to orchestrate manual data ingestion from sources like Google Sheets and CSV files.</li>
+<li><strong>Kafka &amp; Kafka Connect:</strong>
+<ul>
+<li>Formed the core of our streaming data pipeline.</li>
+<li>Leveraged custom Single Message Transforms (SMTs) for specialized transformations.</li>
+<li>Self-managed and hosted Kafka Connect cluster for fine-grained control.</li>
+<li>Utilized <strong>managed Confluent Cloud</strong> for our Kafka Connect cluster, leveraging our existing infrastructure used for application pub-sub systems.</li>
+</ul>
+</li>
+<li><strong>Sink Connectors:</strong> Employed Kafka Connect Sink Connectors to deliver data to downstream destinations, including:
+<ul>
+<li>File storage (S3).</li>
+<li>PostgreSQL for data replication.</li>
+</ul>
+</li>
+</ul>
+<h3 id="storage--compute-layer">Storage &amp; Compute Layer</h3>
+<p><img src="/images/b1_Data_Platform.png" alt="Data Processing"></p>
+<ul>
+<li><strong>Data Storage</strong>
+<ul>
+<li>All raw data, ingested from our diverse sources, is persisted in file storage (S3) in Parquet format. This choice offers significant advantages: Parquet&rsquo;s columnar storage optimizes query performance, and S3 provides cost-effective and highly durable storage.</li>
+</ul>
+</li>
+<li><strong>Data Transformation and Quality</strong>
+<ul>
+<li>Airflow orchestrates dbt runs, enabling us to build modular, testable, and maintainable data transformation pipelines. dbt&rsquo;s transformation logic, expressed as SQL, simplifies the process and allows for version control.</li>
+<li>Great Expectations is integrated into our pipelines to ensure comprehensive data validation checks at every stage. This helps us detect and address data quality issues early, preventing downstream errors.</li>
+<li>dbt docs are used for good documentations. This allows for data lineage tracking, and helps downstream consumers discover and understand the datasets we curate for them.</li>
+</ul>
+</li>
+<li><strong>Ad-Hoc Analysis</strong>
+<ul>
+<li>Depending on dataset size and query patterns, we also leverage DuckDB for ad-hoc analysis and rapid prototyping. DuckDB&rsquo;s in-process, embeddable nature allows for fast, interactive querying, particularly for smaller datasets or exploratory analysis.</li>
+</ul>
+</li>
+<li><strong>Medallion Architecture: Organizing Data for Consumption</strong>
+<ul>
+<li>We implemented a medallion architecture (Bronze, Silver, Gold) to organize our data for optimal consumption.</li>
+<li>The Bronze layer stores raw data, the Silver layer contains cleaned and conformed data, and the Gold layer provides business-ready datasets.</li>
+<li>The Gold layer is further refined to create fine-grained datasets tailored to specific data access patterns. This approach minimizes data scanning during queries, significantly optimizing query performance, especially for frequently accessed data.</li>
+</ul>
+</li>
+</ul>
+<p>To enable efficient data discovery and querying:</p>
+<ul>
+<li><strong>Data Discovery: Data Indexing and Metastore</strong>
+<ul>
+<li>AWS Glue crawlers automatically index data in S3, updating metadata as new data arrives.</li>
+<li>The AWS Glue Data Catalog serves as our Hive Metastore, providing a centralized repository for metadata. This allows Trino to efficiently locate and access data across our data lake.</li>
+</ul>
+</li>
+<li><strong>Querying and Visualization</strong>
+<ul>
+<li>Trino is integrated with the Hive Metastore for distributed querying, enabling us to query data across our data lake using standard SQL. Trino&rsquo;s ability to federate queries across multiple data sources provides flexibility.</li>
+<li>Metabase is linked to Trino, providing a user-friendly data visualization layer. This empowers our data and BI teams to create interactive reports and dashboards, driving data-driven decisions throughout the organization.</li>
+</ul>
+</li>
+</ul>
+<h2 id="analyzing-the-cost-reduction">Analyzing the Cost Reduction</h2>
+<p>Our cost reduction was realized through maximizing the utilization of our current infrastructure and transitioning away from expensive managed services.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Old Data Platform</th>
+          <th>New Architecture</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Hevo: 300~500$</td>
+          <td>Connect Cluster : ~150$</td>
+      </tr>
+      <tr>
+          <td>GBQ : ~750$</td>
+          <td>Airflow: ~160$</td>
+      </tr>
+      <tr>
+          <td>Postgres: 1000$</td>
+          <td>Trino: ~160$</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>Glue: ~10$</td>
+      </tr>
+      <tr>
+          <td>Total: ~2200$ <del>*</del></td>
+          <td>Total: ~460$ <del>*</del></td>
+      </tr>
+  </tbody>
+</table>
+<p><del>*</del> All costs are monthly.</p>
+<hr>
+<h3 id="acknowledgments">Acknowledgments</h3>
+<p>I would like to thank my stunning data team and managers - Aankesh, Deepak and Prashant for enabling the team</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://www.linkedin.com/in/aankesh-rajshekar-0a53a219/">Aankesh</a> is Senior Engineering Manager managing the Repayments, Risk, and Data Engineering teams, providing leadership for various storage technologies.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+  </div>
+  
+  <div class="meta">
+    <time datetime="2025-02-27">February 27, 2025</time>
+    
+    &middot;
+    
+      <a href="/tags/data/">data</a>
+    
+      , <a href="/tags/platform/">platform</a>
+    
+    
+  </div>
+  
+</article>
+
+      </section>
+    </main>
+  </body>
+</html>

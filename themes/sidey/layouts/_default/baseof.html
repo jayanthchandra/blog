@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+{{ partial "head.html" (dict "Context" . "Site" .Site) }}
+  <body>
+    <main>
+      {{ partial "navigation.html" . }}
+      <section>
+        {{ block "main" . }}{{ end }}
+      </section>
+    </main>
+  </body>
+</html>

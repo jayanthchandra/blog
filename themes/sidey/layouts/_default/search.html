@@ -1,0 +1,28 @@
+{{ define "main" }}
+<article class="post">
+<h1>Search</h1>
+<input type="text" id="search-input" placeholder="Search posts...">
+<ul id="search-results" class="posts"></ul>
+<script>
+var searchData = [
+{{- range $i, $page := where .Site.RegularPages "Section" "posts" }}
+{{- if $i }}, {{ end }}"{{ $page.Title }}|{{ $page.RelPermalink }}|{{ $page.Date.Format "02-01-2006" }}"
+{{- end }}
+];
+var results = document.getElementById('search-results');
+document.getElementById('search-input').addEventListener('input', function(e) {
+  results.innerHTML = '';
+  var q = e.target.value.toLowerCase();
+  if (q.length < 2) return;
+  searchData.forEach(function(item) {
+    var parts = item.split('|');
+    if (parts[0].toLowerCase().indexOf(q) !== -1) {
+      var li = document.createElement('li');
+      li.innerHTML = '<a href="' + parts[1] + '">' + parts[0] + '</a> <time>' + parts[2] + '</time>';
+      results.appendChild(li);
+    }
+  });
+});
+</script>
+</article>
+{{ end }}

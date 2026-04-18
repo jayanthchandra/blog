@@ -1,0 +1,7 @@
+<header>
+  <nav>
+    <ul>{{ $currentPage := . }}{{ $relPermalink := $currentPage.RelPermalink }}{{ if eq $relPermalink "/" }}{{ $relPermalink = "/posts/" }}{{ end }}{{ range .Site.Menus.main }}
+      <li><a href="{{ .URL }}"{{ if or ($currentPage.IsMenuCurrent "main" .) (eq $relPermalink .URL) }} class="active"{{ end }}>{{ .Name }}</a></li>{{ end }}
+    </ul>
+  </nav>
+</header>
