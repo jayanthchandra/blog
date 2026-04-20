@@ -321,9 +321,12 @@ The full research notebook open for [review](https://github.com/jayanthchandra/n
 
 ## Citation
 ```
-@article{hae_kv_cache_2026,
-  title   = {Entropy-Guided KV Cache Summarization via Low-Rank Attention Reconstruction},
-  author  = {Jayanth Chandra},
-  year    = {2026}
+@misc{hae_kv_cache_2026,
+  title     = {Entropy-Guided KV Cache Summarization via Low-Rank Attention Reconstruction},
+  author    = {Chandra, Jayanth},
+  year      = {2026},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.19657329},
+  url       = {https://doi.org/10.5281/zenodo.19657329}
 }
 ```
